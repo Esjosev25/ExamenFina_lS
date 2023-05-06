@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const UsuarioSchema = Schema({
+const CandidatoSchema = Schema({
   dpi: {
     type: Number,
     required: true,
@@ -17,10 +17,10 @@ const UsuarioSchema = Schema({
   },
 });
 
-UsuarioSchema.method('toJSON', function () {
-  const { __v, _id, password, ...object } = this.toObject();
+CandidatoSchema.method('toJSON', function () {
+  const { __v, _id, ...object } = this.toObject();
   object.uid = _id;
   return object;
 });
 
-module.exports = model('Usuario', UsuarioSchema);
+module.exports = model('Candidato', CandidatoSchema);

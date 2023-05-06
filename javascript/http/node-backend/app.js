@@ -19,8 +19,9 @@ app.use(express.json());
 //Base de datos
 connectDB();
 
-app.use('/usuarios', require('./routes/usuarios'));
+app.use('/candidato', require('./routes/candidato'));
 app.use('/fase', require('./routes/fase'));
+app.use('/voto', require('./routes/voto'));
 
 const port = 3005;
 app.listen(port, () => {

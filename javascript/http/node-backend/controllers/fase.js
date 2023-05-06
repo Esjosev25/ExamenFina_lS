@@ -1,6 +1,15 @@
 const Fase = require('../models/fase');
 const { response } = require('express');
 
+const getFases = async (req, res) => {
+  const fases = await Fase.find({});
+  console.log('fases')
+   return res.json({
+     ok: true,
+     fases,
+   });
+};
+
 const getFase = async (req, res) => {
   const { name } = req.body;
   const fase = await Fase.findOne({ name });
@@ -11,7 +20,7 @@ const getFase = async (req, res) => {
     });
   return res.json({
     ok: false,
-    msg: 'usuario no encontrado',
+    msg: 'fase no encontrado',
   });
 };
 
@@ -78,4 +87,5 @@ module.exports = {
   getFase,
   putFase,
   postFase,
+  getFases,
 };

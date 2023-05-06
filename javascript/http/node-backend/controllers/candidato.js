@@ -1,8 +1,9 @@
-const Usuario = require('../models/usuario');
+const Candidato = require('../models/candidato');
+const Fase = require('../models/fase');
 const { response } = require('express');
 const { daprPost, daprGet, daprDelete } = require('../config/dapr');
 
-const getUsuario = async (req, res) => {
+const getCandidato = async (req, res) => {
   const { daprUuid } = req.body;
   const user = await daprGet(daprUuid);
   if (user)
@@ -12,16 +13,23 @@ const getUsuario = async (req, res) => {
     });
   return res.json({
     ok: false,
-    msg: 'usuario no encontrado',
+    msg: 'Candidato no encontrado',
   });
 };
 
-const postUsuario = async (req, res = response) => {
+const postCandidato = async (req, res = response) => {
   try {
-    console.log(req.body);
-
+    console.log('Hola')
+    const fase = await Fase.findOne({ name:'crear candidatos' });
+    if(!fase|| !fase.status){
+       return res.status(400).json({
+         ok: false,
+         msg: 'No es fase de crear candidato',
+       });
+    }
     const { dpi } = req.body;
-    const existeDpi = await Usuario.findOne({ dpi });
+   
+    const existeDpi = await Candidato.findOne({ dpi });
 
     if (existeDpi)
       return res.status(400).json({
@@ -35,14 +43,14 @@ const postUsuario = async (req, res = response) => {
       daprUuid,
       nombre: req.body.nombre,
     };
-    const usuario = new Usuario(user);
+    const candidato = new Candidato(user);
 
-    // Guardar Usuarios en mongo
-    await usuario.save();
+    // Guardar Candidatos en mongo
+    await candidato.save();
 
     return res.json({
       ok: true,
-      usuario,
+      candidato,
     });
   } catch (error) {
     console.log(error);
@@ -53,18 +61,18 @@ const postUsuario = async (req, res = response) => {
   }
 };
 
-const deleteUsuario = async (req, res) => {
+const deleteCandidato = async (req, res) => {
   const { daprUuid } = req.body;
 
   try {
-    const usuarioDB = await Usuario.findOne({ daprUuid });
+    const usuarioDB = await Candidato.findOne({ daprUuid });
     if (!usuarioDB)
       return res.status(404).json({
         ok: false,
         msg: 'Usuario no existe',
       });
     await daprDelete(daprUuid);
-    await Usuario.findByIdAndDelete(usuarioDB.id);
+    await Candidato.findByIdAndDelete(usuarioDB.id);
 
     return res.json({
       ok: true,
@@ -80,7 +88,7 @@ const deleteUsuario = async (req, res) => {
 };
 
 module.exports = {
-  getUsuario,
-  postUsuario,
-  deleteUsuario,
+  getCandidato,
+  postCandidato,
+  deleteCandidato,
 };

@@ -8,12 +8,9 @@ const router = Router();
 const { check } = require('express-validator');
 const { validarCampos } = require('../middlewares/validar-campos');
 
-const {
-  getFase,
-  putFase,
-} = require('../controllers/fase');
-
-router.get('/', getFase);
+const { getFases, getFase, putFase, postFase } = require('../controllers/fase');
+router.get('/', getFases);
+router.get('/byDaprUuid', getFase);
 router.post(
   '/',
   [
@@ -21,7 +18,7 @@ router.post(
     check('status', 'El status es obligatorio').isBoolean(),
     validarCampos,
   ],
-  putFase
+  postFase
 );
 router.put(
   '/',

@@ -32,6 +32,11 @@ const daprGet =async (daprUuid)=>{
 const data = await client.state.get(DAPR_STATE_STORE_NAME, daprUuid);
 return data;
 }
+const daprGetAll = async (daprUuid) => {
+  
+  const data = await client.state.getBulk(DAPR_STATE_STORE_NAME);
+  return data;
+};
 
 const daprPost = async (data) => {
   const key = uuidv4()
@@ -59,4 +64,5 @@ module.exports = {
   daprGet,
   daprPost,
   daprDelete,
+  daprGetAll,
 };

@@ -5,13 +5,14 @@
   "main": "app.js",
   "scripts": {
     "start:dev": "nodemon index.js",
-     "start": "node .",
-        "start:dapr": "dapr run --app-id checkout --app-protocol http --dapr-http-port 3500 -- npm run start"
+    "start": "node .",
+    "start:dapr": "dapr run --app-id checkout --app-protocol http --dapr-http-port 3500 -- npm run start"
   },
   "author": "Estuardo Villeda",
   "license": "ISC",
   "dependencies": {
     "@dapr/dapr": "^2.3.0",
+    "axios": "^1.4.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
