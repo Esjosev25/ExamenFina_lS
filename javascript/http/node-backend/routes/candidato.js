@@ -7,7 +7,7 @@ const router = Router();
 //midlewares
 const { check } = require('express-validator');
 const { validarCampos } = require('../middlewares/validar-campos');
-
+const { validarJWT } = require('../middlewares/validar-jwt');
 const {
   getCandidato,
   postCandidato,
@@ -17,6 +17,7 @@ const {
 router.get(
   '/',
   [
+    validarJWT,
     check('daprUuid', 'El daprUuid es obligatorio').not().isEmpty(),
     validarCampos,
   ],
@@ -25,6 +26,7 @@ router.get(
 router.post(
   '/',
   [
+    validarJWT,
     check('nombre', 'El nombre es obligatorio').not().isEmpty(),
     check('apellido', 'El carnet es obligatorio').not().isEmpty(),
     check('dpi', 'El dpi es obligatorio').not().isEmpty(),

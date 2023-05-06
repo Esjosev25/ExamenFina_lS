@@ -14,7 +14,7 @@ const getVoto = async (req, res) => {
    });
  return res.json({
    ok: false,
-   msg: 'Candidato no encontrado',
+   msg: 'voto no encontrado',
  });
 };
 const getVotos = async (req, res) => {

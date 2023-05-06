@@ -22,7 +22,8 @@ connectDB();
 app.use('/candidato', require('./routes/candidato'));
 app.use('/fase', require('./routes/fase'));
 app.use('/voto', require('./routes/voto'));
-
+app.use('/usuario', require('./routes/usuario'));
+app.use('/reportes', require('./routes/reportes'));
 const port = 3005;
 app.listen(port, () => {
   console.log(`Servidor corriendo en el puerto ${port}`);
